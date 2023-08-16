@@ -120,35 +120,11 @@ void oled_begin() {
 }
 
 
-//no need
-/*
-void oled_display_time() {
-  display.setTextSize(1);
-  display.setTextColor(SH110X_WHITE);
-  display.setCursor(0, 0);
 
-  //struct tm timeinfo;
-
-  if (!getLocalTime(&timeinfo)) {
-    Serial.println("Failed to obtain time");
-    display.println("Failure is always an option");
-    display.display();
-    display.println("Failed to obtain time");
-    display.display();
-    return;
-  }
-  Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
-  display.clearDisplay();
-  display.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
-  display.display();
-}
-
-*/
 
 
 void oled_display() {
   //display time
-  //struct tm timeinfo;
 
   /*
   getLocalTime(&timeinfo);
@@ -185,13 +161,13 @@ void setup() {
   touchAttachInterrupt(T4, touch1, TOUCH_THRESHOLD);
   touchAttachInterrupt(T5, touch2, TOUCH_THRESHOLD);
 }
-int x =0;
+int x =0; //variable used to over come ISR cannot handle the time for buttons 
 
 
 void loop() {
   //delay(100);
   //printLocalTime();
- // touch(); remove this
+
   if(home){
   oled_display();
  // Serial.println("in  oled display");
@@ -205,7 +181,7 @@ void loop() {
   gotTouch2();
     Serial.println("touch 2");
   }
-  // Check for timeout to go to home screen
+  // Check for timeout to go to home screen default 2 seconds variable  TIMEOUT_DURATION
   if (millis() - lastTouchTime >= TIMEOUT_DURATION) {
     returnToHomeScreen();
   }
